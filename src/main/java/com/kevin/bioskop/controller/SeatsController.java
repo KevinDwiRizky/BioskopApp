@@ -54,10 +54,10 @@ public class SeatsController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{seatNumber}")
+    @GetMapping("/{id}")
     public ResponseEntity<Seats> getSeatBySeatNumber(@PathVariable String seatNumber) {
         try {
-            Seats seat = seatsService.getSeatByNumber(seatNumber);
+            Seats seat = seatsService.getSeatById(seatNumber);
             return new ResponseEntity<>(seat, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

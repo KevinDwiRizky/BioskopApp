@@ -17,13 +17,14 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("/buy-ticket")
-    public ResponseEntity<Transaction> buyTicket(@Valid @RequestBody TransactionRequest transactionRequest) {
+    public ResponseEntity<?> buyTicket(@Valid @RequestBody TransactionRequest transactionRequest) {
         try {
             Transaction transaction = transactionService.buyTicket(transactionRequest);
             return new ResponseEntity<>(transaction, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
+
 

@@ -58,10 +58,13 @@ public class SeatsServiceImpl implements SeatsService {
     }
 
     @Override
-    public Seats getSeatByNumber(String seatNumber) {
-        Optional<Seats> optionalSeat = seatsRepository.findBySeatNumber(seatNumber);
-        if (optionalSeat.isPresent()) return optionalSeat.get();
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Seats with id : " + seatNumber + " Not Found");
+    public Seats getSeatById(String id) {
+        Optional<Seats> optionalSeat = seatsRepository.findById(id);
+        if (optionalSeat.isPresent()) {
+            return optionalSeat.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Seat with id : " + id + " Not Found");
+        }
     }
 
     @Override

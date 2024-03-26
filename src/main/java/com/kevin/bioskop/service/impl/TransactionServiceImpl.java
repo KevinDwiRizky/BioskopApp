@@ -10,6 +10,7 @@ import com.kevin.bioskop.service.CustomerService;
 import com.kevin.bioskop.service.MoviesService;
 import com.kevin.bioskop.service.SeatsService;
 import com.kevin.bioskop.service.TransactionService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
     private SeatsService seatsService;
 
     @Override
+    @Transactional
     public Transaction buyTicket(TransactionRequest transactionRequest) {
 
         Customer customer = customerService.getCustomerById(transactionRequest.getCustomerId());
@@ -37,9 +39,9 @@ public class TransactionServiceImpl implements TransactionService {
             throw new RuntimeException("Tidak dizinkan untuk menonton film");
         }
 
-        Seats seat = seatsService.getSeatByNumber(transactionRequest.getSeatId());
+        Seats seat = seatsService.getSeatById(transactionRequest.getSeatId());
         if (!seatsService.isSeatAvailable(seat)) {
-            throw new RuntimeException("Selected seat is not available.");
+            throw new RuntimeException("seat tidak ada.");
         }
 
         seatsService.decreaseSeatStock(seat);
