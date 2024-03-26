@@ -10,6 +10,7 @@ import com.kevin.bioskop.service.CustomerService;
 import com.kevin.bioskop.service.MoviesService;
 import com.kevin.bioskop.service.SeatsService;
 import com.kevin.bioskop.service.TransactionService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
     private SeatsService seatsService;
 
     @Override
+    @Transactional
     public Transaction buyTicket(TransactionRequest transactionRequest) {
 
         Customer customer = customerService.getCustomerById(transactionRequest.getCustomerId());
