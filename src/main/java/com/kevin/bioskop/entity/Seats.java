@@ -17,6 +17,7 @@ public class Seats {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(unique = true)
     private String seatNumber;
     private boolean available;
     @ManyToOne

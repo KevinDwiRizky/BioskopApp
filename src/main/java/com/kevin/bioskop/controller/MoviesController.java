@@ -35,6 +35,18 @@ public class MoviesController {
         return new ResponseEntity<>(foundMovies, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getNasabahById(@PathVariable String id) {
+        Movies findMovies = moviesService.getMoviesById(id);
+        WebResponse<Movies> response = WebResponse.<Movies>builder()
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Success Get By Id ")
+                .data(findMovies)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+
     @PutMapping
     public ResponseEntity<?> updateMoviesById(@RequestBody Movies movies){
         Movies updateMovies = moviesService.updateMovies(movies);
