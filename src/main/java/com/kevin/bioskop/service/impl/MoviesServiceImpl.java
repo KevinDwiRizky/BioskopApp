@@ -54,6 +54,18 @@ public class MoviesServiceImpl implements MoviesService {
 
     }
 
+    @Override
+    public Movies updateMovies(Movies movies) {
+        this.getMoviesById(movies.getId());
+        return movieRepository.save(movies);
+    }
+
+    @Override
+    public void deleteMoviesById(String id) {
+        this.getMoviesById(id);
+        movieRepository.deleteById(id);
+    }
+
 
     @Override
     public List<Movies> findMovies(String name, Integer duration, Date showDate, Double price, String ratingId) {
@@ -86,8 +98,6 @@ public class MoviesServiceImpl implements MoviesService {
         // Dapatkan daftar Movies berdasarkan spesifikasi
         return movieRepository.findAll(spec);
     }
-
-
 }
 
 

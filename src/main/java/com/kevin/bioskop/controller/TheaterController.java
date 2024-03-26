@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/theater")
+@RequestMapping("/theaters")
 public class TheaterController {
     @Autowired
     private TheaterService theaterService;

@@ -1,6 +1,7 @@
 package com.kevin.bioskop.controller;
 
 import com.kevin.bioskop.Model.request.MovieRequest;
+import com.kevin.bioskop.Model.response.WebResponse;
 import com.kevin.bioskop.entity.Movies;
 import com.kevin.bioskop.service.MoviesService;
 import jakarta.validation.Valid;
@@ -33,4 +34,40 @@ public class MoviesController {
         List<Movies> foundMovies = moviesService.findMovies(name, duration, showDate, price, ratingId);
         return new ResponseEntity<>(foundMovies, HttpStatus.OK);
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getNasabahById(@PathVariable String id) {
+        Movies findMovies = moviesService.getMoviesById(id);
+        WebResponse<Movies> response = WebResponse.<Movies>builder()
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Success Get By Id ")
+                .data(findMovies)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PutMapping
+    public ResponseEntity<?> updateMoviesById(@RequestBody Movies movies){
+        Movies updateMovies = moviesService.updateMovies(movies);
+        WebResponse<Movies> response = WebResponse.<Movies>builder()
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Success Update Nasabah By Id ")
+                .data(updateMovies)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteMoviesById(@PathVariable String id){
+        moviesService.deleteMoviesById(id);
+        WebResponse<String> response = WebResponse.<String>builder()
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Success Delete Movies By Id ")
+                .data("OK")
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+
 }

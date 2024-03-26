@@ -36,6 +36,7 @@ public class SeatsServiceImpl implements SeatsService {
         Seats newSeat = Seats.builder()
                 .seatNumber(seatsRequest.getSeatNumber())
                 .theater(theater)
+                .available(true)
                 .build();
 
         seatsRepository.save(newSeat);
@@ -58,10 +59,14 @@ public class SeatsServiceImpl implements SeatsService {
     }
 
     @Override
-    public Seats getSeatByNumber(String seatNumber) {
-        Optional<Seats> optionalSeat = seatsRepository.findBySeatNumber(seatNumber);
-        if (optionalSeat.isPresent()) return optionalSeat.get();
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Seats with id : " + seatNumber + " Not Found");
+
+    public Seats getSeatById(String id) {
+        Optional<Seats> optionalSeat = seatsRepository.findById(id);
+        if (optionalSeat.isPresent()) {
+            return optionalSeat.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Seat with id : " + id + " Not Found");
+        }
     }
 
     @Override
@@ -78,6 +83,8 @@ public class SeatsServiceImpl implements SeatsService {
         if (currentStock > 0) {
             theater.setStock(currentStock - 1);
             theaterRepository.save(theater);
+            seat.setAvailable(false);
+            seatsRepository.save(seat);
         } else {
             throw new RuntimeException("No available stock in the theater.");
         }

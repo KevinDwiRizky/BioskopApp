@@ -8,7 +8,8 @@ public interface SeatsService {
     Seats addSeats(SeatsRequest seatsRequest);
     Page<Seats> getAllSeats(Integer page, Integer size);
 
-    Seats getSeatByNumber(String id);
+
+    Seats getSeatById(String id);
 
     boolean isSeatAvailable(Seats seat);
 
