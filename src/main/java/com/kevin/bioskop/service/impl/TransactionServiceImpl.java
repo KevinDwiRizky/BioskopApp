@@ -13,6 +13,7 @@ import com.kevin.bioskop.service.TransactionService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 
 @Service
@@ -41,6 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         Seats seat = seatsService.getSeatById(transactionRequest.getSeatId());
 
+        // Check if the seat is available
         if (!seatsService.isSeatAvailable(seat)) {
             throw new RuntimeException("Kursi tidak tersedia.");
         }
@@ -57,5 +59,3 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.save(transaction);
     }
 }
-
-

@@ -54,17 +54,10 @@ public class SeatsController {
         return ResponseEntity.ok(response);
     }
 
-<<<<<<< HEAD
-    @GetMapping("/{seatNumber}")
-    public ResponseEntity<Seats> getSeatBySeatNumber(@PathVariable String seatNumber) {
-        try {
-            Seats seat = seatsService.getSeatByNumber(seatNumber);
-=======
     @GetMapping("/{id}")
     public ResponseEntity<Seats> getSeatBySeatNumber(@PathVariable String seatNumber) {
         try {
             Seats seat = seatsService.getSeatById(seatNumber);
->>>>>>> 61cd971e1f7fae62198f8528a8fc25621f6f0b23
             return new ResponseEntity<>(seat, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
