@@ -9,5 +9,5 @@ import java.util.List;
 public interface MoviesService {
     Movies createMovies(MovieRequest movieRequest);
     List<Movies> findMovies(String name, Integer duration, Date showDate, Double price, String ratingId);
-
+    Movies getMoviesById(String id);
 }

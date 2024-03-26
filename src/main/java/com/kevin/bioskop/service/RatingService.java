@@ -16,4 +16,6 @@ public interface RatingService {
 
     void  deleteRatingById(String id);
 
+    int getMinimumAgeByRatingCode(String ratingCode);
+
 }

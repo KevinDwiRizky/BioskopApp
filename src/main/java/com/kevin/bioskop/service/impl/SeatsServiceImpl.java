@@ -2,6 +2,7 @@ package com.kevin.bioskop.service.impl;
 
 import com.kevin.bioskop.Model.request.SeatsRequest;
 import com.kevin.bioskop.Model.request.TheaterRequest;
+import com.kevin.bioskop.entity.Customer;
 import com.kevin.bioskop.entity.Seats;
 import com.kevin.bioskop.entity.Theater;
 import com.kevin.bioskop.repository.SeatsRepository;
@@ -12,7 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 public class SeatsServiceImpl implements SeatsService {
@@ -50,5 +55,31 @@ public class SeatsServiceImpl implements SeatsService {
         }
         Pageable pageable = PageRequest.of(page-1, size);
         return seatsRepository.findAll(pageable);
+    }
+
+    @Override
+    public Seats getSeatByNumber(String seatNumber) {
+        Optional<Seats> optionalSeat = seatsRepository.findBySeatNumber(seatNumber);
+        if (optionalSeat.isPresent()) return optionalSeat.get();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Seats with id : " + seatNumber + " Not Found");
+    }
+
+    @Override
+    public boolean isSeatAvailable(Seats seat) {
+        Theater theater = seat.getTheater();
+        int currentStock = theater.getStock();
+        return currentStock > 0;
+    }
+
+    @Override
+    public void decreaseSeatStock(Seats seat) {
+        Theater theater = seat.getTheater();
+        int currentStock = theater.getStock();
+        if (currentStock > 0) {
+            theater.setStock(currentStock - 1);
+            theaterRepository.save(theater);
+        } else {
+            throw new RuntimeException("No available stock in the theater.");
+        }
     }
 }

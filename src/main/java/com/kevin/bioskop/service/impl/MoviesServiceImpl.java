@@ -1,10 +1,7 @@
 package com.kevin.bioskop.service.impl;
 
 import com.kevin.bioskop.Model.request.MovieRequest;
-import com.kevin.bioskop.entity.Movies;
-import com.kevin.bioskop.entity.Rating;
-import com.kevin.bioskop.entity.Seats;
-import com.kevin.bioskop.entity.Theater;
+import com.kevin.bioskop.entity.*;
 import com.kevin.bioskop.repository.MovieRepository;
 import com.kevin.bioskop.repository.RatingRepository;
 import com.kevin.bioskop.service.MoviesService;
@@ -12,11 +9,14 @@ import com.kevin.bioskop.service.RatingService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MoviesServiceImpl implements MoviesService {
@@ -44,6 +44,14 @@ public class MoviesServiceImpl implements MoviesService {
                 .build();
 
         return movieRepository.save(newMovies);
+    }
+
+    @Override
+    public Movies getMoviesById(String id) {
+        Optional<Movies> optionalMovies = movieRepository.findById(id);
+        if (optionalMovies.isPresent()) return optionalMovies.get();
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with id : " + id + " Not Found");
+
     }
 
 
@@ -78,6 +86,8 @@ public class MoviesServiceImpl implements MoviesService {
         // Dapatkan daftar Movies berdasarkan spesifikasi
         return movieRepository.findAll(spec);
     }
+
+
 }
 
 
