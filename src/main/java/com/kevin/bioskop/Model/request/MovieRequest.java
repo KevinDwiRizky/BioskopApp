@@ -1,6 +1,6 @@
-package com.kevin.bioskop.entity;
+package com.kevin.bioskop.Model.request;
 
-import jakarta.persistence.*;
+import com.kevin.bioskop.entity.Rating;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,19 +12,10 @@ import java.sql.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "t_movie")
-public class Movies {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+public class MovieRequest {
     private String name;
     private int duration;
     private Date showDate;
     private double price;
-
-    @ManyToOne
-    @JoinColumn(name = "rating_id")
-    private Rating rating;
-
+    private String ratingId;
 }
