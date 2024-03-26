@@ -6,6 +6,7 @@ import com.kevin.bioskop.Model.response.WebResponse;
 import com.kevin.bioskop.entity.Seats;
 import com.kevin.bioskop.entity.Theater;
 import com.kevin.bioskop.service.SeatsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class SeatsController {
     }
 
     @PostMapping
-    public ResponseEntity<Seats> addSeats(@RequestBody SeatsRequest seatsRequest) {
+    public ResponseEntity<Seats> addSeats(@Valid @RequestBody SeatsRequest seatsRequest) {
         Seats newSeat = seatsService.addSeats(seatsRequest);
         return new ResponseEntity<>(newSeat, HttpStatus.CREATED);
     }
@@ -53,4 +54,13 @@ public class SeatsController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{seatNumber}")
+    public ResponseEntity<Seats> getSeatBySeatNumber(@PathVariable String seatNumber) {
+        try {
+            Seats seat = seatsService.getSeatByNumber(seatNumber);
+            return new ResponseEntity<>(seat, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

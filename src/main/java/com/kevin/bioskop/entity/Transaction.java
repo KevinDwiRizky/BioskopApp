@@ -1,5 +1,6 @@
 package com.kevin.bioskop.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +33,15 @@ public class Transaction {
     @JoinColumn(name = "seat_id")
     private Seats seat;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Jakarta")
     private Date transactionDate;
+
+    @PrePersist
+    protected  void onCreate(){
+        transactionDate = new Date();
+    }
 
 }
 

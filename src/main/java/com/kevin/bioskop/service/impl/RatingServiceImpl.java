@@ -58,4 +58,19 @@ public class RatingServiceImpl implements RatingService {
         this.getRatingById(id);
         ratingRepository.deleteById(id);
     }
+
+    @Override
+    public int getMinimumAgeByRatingCode(String ratingCode) {
+        if ("A".equals(ratingCode)) {
+            return 0;
+        } else if ("BO".equals(ratingCode)) {
+            return 13;
+        } else if ("R".equals(ratingCode)) {
+            return 18;
+        } else if ("D".equals(ratingCode)) {
+            return 21;
+        } else {
+            throw new IllegalArgumentException("Invalid rating code: " + ratingCode);
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class TheaterServiceImpl implements TheaterService {
     @Autowired
     private TheaterRepository theaterRepository;
     @Override
-    public Theater addTheater(@Valid @RequestBody TheaterRequest theaterRequest) {
+    public Theater addTheater( TheaterRequest theaterRequest) {
 
         Theater newTheater = Theater.builder()
                 .theaterNumber(theaterRequest.getTheaterNumber())
