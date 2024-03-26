@@ -10,13 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/purchase-tickets")
 public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
 
-    @PostMapping("/buy-ticket")
+    @PostMapping
     public ResponseEntity<?> buyTicket(@Valid @RequestBody TransactionRequest transactionRequest) {
         try {
             Transaction transaction = transactionService.buyTicket(transactionRequest);
