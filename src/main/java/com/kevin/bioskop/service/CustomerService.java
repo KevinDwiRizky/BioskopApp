@@ -5,7 +5,7 @@ import com.kevin.bioskop.entity.Customer;
 import org.springframework.data.domain.Page;
 
 public interface CustomerService {
-    Customer createNasabah(CustomerRequest customerRequest);
+    Customer createCustomer(CustomerRequest customerRequest);
 
     Page<Customer> getAllCustomer(Integer page, Integer size);
 

@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public Customer createNasabah(CustomerRequest customerRequest) {
+    public Customer createCustomer(CustomerRequest customerRequest) {
         Customer newCustomer = Customer.builder()
                 .name(customerRequest.getName())
                 .birthDate(customerRequest.getBirthDate())

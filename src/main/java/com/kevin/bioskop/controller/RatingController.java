@@ -1,10 +1,13 @@
 package com.kevin.bioskop.controller;
 
-import com.kevin.bioskop.Model.request.CustomerRequest;
+import com.kevin.bioskop.Model.request.RatingRequest;
+import com.kevin.bioskop.Model.request.RatingRequest;
 import com.kevin.bioskop.Model.response.PagingResponse;
 import com.kevin.bioskop.Model.response.WebResponse;
-import com.kevin.bioskop.entity.Customer;
-import com.kevin.bioskop.service.CustomerService;
+import com.kevin.bioskop.entity.Rating;
+import com.kevin.bioskop.entity.Rating;
+import com.kevin.bioskop.service.RatingService;
+import com.kevin.bioskop.service.RatingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,19 +18,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping("/rating")
+public class RatingController {
 
     @Autowired
-    private CustomerService customerService;
+    private RatingService ratingService;
 
     @PostMapping
-    public ResponseEntity<?> createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
-        Customer newCustomer = customerService.createCustomer(customerRequest);
-        WebResponse<Customer> response = WebResponse.<Customer>builder()
+    public ResponseEntity<?> createRating(@Valid @RequestBody RatingRequest ratingRequest) {
+        Rating newRating = ratingService.createRating(ratingRequest);
+        WebResponse<Rating> response = WebResponse.<Rating>builder()
                 .status(HttpStatus.CREATED.getReasonPhrase())
                 .message("Success add data")
-                .data(newCustomer)
+                .data(newRating)
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -37,19 +40,19 @@ public class CustomerController {
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size
     ){
-        Page<Customer> customerList = customerService.getAllCustomer(page, size);
+        Page<Rating> ratingList = ratingService.getAllRating(page, size);
 
         PagingResponse pagingResponse = PagingResponse.builder()
                 .page(page).size(size)
-                .totalPages(customerList.getTotalPages())
-                .totalElement(customerList.getTotalElements())
+                .totalPages(ratingList.getTotalPages())
+                .totalElement(ratingList.getTotalElements())
                 .build();
 
-        WebResponse<List<Customer>> response = WebResponse.<List<Customer>>builder()
+        WebResponse<List<Rating>> response = WebResponse.<List<Rating>>builder()
                 .status(HttpStatus.OK.getReasonPhrase())
                 .message("Success Get List data")
                 .paging(pagingResponse)
-                .data(customerList.getContent())
+                .data(ratingList.getContent())
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -57,33 +60,33 @@ public class CustomerController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getRatingById(@PathVariable String id) {
-        Customer findNasabah = customerService.getCustomerById(id);
-        WebResponse<Customer> response = WebResponse.<Customer>builder()
+        Rating findrating = ratingService.getRatingById(id);
+        WebResponse<Rating> response = WebResponse.<Rating>builder()
                 .status(HttpStatus.OK.getReasonPhrase())
                 .message("Success Get By Id ")
-                .data(findNasabah)
+                .data(findrating)
                 .build();
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> deleteCustomerById(@PathVariable String id){
-        customerService.deleteCustomerById(id);
+    public ResponseEntity<?> deleteRatingById(@PathVariable String id){
+        ratingService.deleteRatingById(id);
         WebResponse<String> response = WebResponse.<String>builder()
                 .status(HttpStatus.OK.getReasonPhrase())
-                .message("Success Delete Customer By Id ")
+                .message("Success Delete Rating By Id ")
                 .data("OK")
                 .build();
         return ResponseEntity.ok(response);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateCustomerById(@RequestBody Customer customer){
-        Customer updateCustomer = customerService.updateCustomer(customer);
-        WebResponse<Customer> response = WebResponse.<Customer>builder()
+    public ResponseEntity<?> updateRatingById(@RequestBody Rating rating){
+        Rating updateRating = ratingService.updateRating(rating);
+        WebResponse<Rating> response = WebResponse.<Rating>builder()
                 .status(HttpStatus.OK.getReasonPhrase())
-                .message("Success Update customer By Id ")
-                .data(updateCustomer)
+                .message("Success Update By Id ")
+                .data(updateRating)
                 .build();
         return ResponseEntity.ok(response);
     }

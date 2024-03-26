@@ -16,6 +16,7 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(unique = true)
     private String code;
     private String description;
 }
