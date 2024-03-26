@@ -40,8 +40,9 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         Seats seat = seatsService.getSeatById(transactionRequest.getSeatId());
+
         if (!seatsService.isSeatAvailable(seat)) {
-            throw new RuntimeException("seat tidak ada.");
+            throw new RuntimeException("Kursi tidak tersedia.");
         }
 
         seatsService.decreaseSeatStock(seat);
@@ -52,7 +53,6 @@ public class TransactionServiceImpl implements TransactionService {
                 .seat(seat)
                 .transactionDate(new Date())
                 .build();
-
 
         return transactionRepository.save(transaction);
     }

@@ -17,9 +17,8 @@ public class Seats {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
     private String seatNumber;
-
+    private boolean available;
     @ManyToOne
     @JoinColumn(name = "theater_id")
     @JsonBackReference

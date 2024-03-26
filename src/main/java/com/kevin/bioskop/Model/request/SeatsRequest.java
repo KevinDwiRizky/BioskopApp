@@ -15,4 +15,6 @@ public class SeatsRequest {
     private String seatNumber;
     @NotBlank(message = "Theater ID cannot be blank")
     private String theaterId;
+    private boolean available;
+
 }

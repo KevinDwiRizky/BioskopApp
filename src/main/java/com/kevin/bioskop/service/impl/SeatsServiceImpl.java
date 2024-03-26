@@ -36,6 +36,7 @@ public class SeatsServiceImpl implements SeatsService {
         Seats newSeat = Seats.builder()
                 .seatNumber(seatsRequest.getSeatNumber())
                 .theater(theater)
+                .available(true)
                 .build();
 
         seatsRepository.save(newSeat);
@@ -81,6 +82,8 @@ public class SeatsServiceImpl implements SeatsService {
         if (currentStock > 0) {
             theater.setStock(currentStock - 1);
             theaterRepository.save(theater);
+            seat.setAvailable(false);
+            seatsRepository.save(seat);
         } else {
             throw new RuntimeException("No available stock in the theater.");
         }
