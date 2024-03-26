@@ -1,5 +1,6 @@
 package com.kevin.bioskop.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Seats {
 
     @ManyToOne
     @JoinColumn(name = "theater_id")
+    @JsonBackReference
     private Theater theater;
 
 }

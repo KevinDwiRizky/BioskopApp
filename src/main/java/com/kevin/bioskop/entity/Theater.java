@@ -1,5 +1,7 @@
 package com.kevin.bioskop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +27,8 @@ public class Theater {
 
 
     @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JsonManagedReference
     private List<Seats> seats;
 
 }

@@ -36,7 +36,7 @@ public class RatingController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllNasabah(
+    public ResponseEntity<?> getAllRating(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size
     ){
