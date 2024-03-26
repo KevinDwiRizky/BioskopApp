@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface TheaterService {
-    public Theater addTheater(TheaterRequest theaterRequest);
+    Theater addTheater(TheaterRequest theaterRequest);
     Page<Theater> getAllRating(Integer page, Integer size);
 
 }

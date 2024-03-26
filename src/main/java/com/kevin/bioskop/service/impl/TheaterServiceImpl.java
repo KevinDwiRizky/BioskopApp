@@ -5,11 +5,13 @@ import com.kevin.bioskop.entity.Rating;
 import com.kevin.bioskop.entity.Theater;
 import com.kevin.bioskop.repository.TheaterRepository;
 import com.kevin.bioskop.service.TheaterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class TheaterServiceImpl implements TheaterService {
     @Autowired
     private TheaterRepository theaterRepository;
     @Override
-    public Theater addTheater(TheaterRequest theaterRequest) {
+    public Theater addTheater(@Valid @RequestBody TheaterRequest theaterRequest) {
 
         Theater newTheater = Theater.builder()
                 .theaterNumber(theaterRequest.getTheaterNumber())
