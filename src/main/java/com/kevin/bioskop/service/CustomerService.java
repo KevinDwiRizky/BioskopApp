@@ -11,5 +11,8 @@ public interface CustomerService {
 
     Customer getCustomerById(String id);
 
+    Customer updateCustomer(Customer customer);
+
+    void  deleteCustomerById(String id);
 
 }

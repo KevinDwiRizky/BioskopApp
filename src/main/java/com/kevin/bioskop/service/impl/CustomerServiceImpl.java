@@ -47,4 +47,16 @@ public class CustomerServiceImpl implements CustomerService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id : " + id + " Not Found");
 
     }
+
+    @Override
+    public Customer updateCustomer(Customer customer) {
+        this.getCustomerById(customer.getId());
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public void deleteCustomerById(String id) {
+        this.getCustomerById(id);
+        customerRepository.deleteById(id);
+    }
 }

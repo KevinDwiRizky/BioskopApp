@@ -66,5 +66,27 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteCustomerById(@PathVariable String id){
+        customerService.deleteCustomerById(id);
+        WebResponse<String> response = WebResponse.<String>builder()
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Success Delete Customer By Id ")
+                .data("OK")
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateCustomerById(@RequestBody Customer customer){
+        Customer updateCustomer = customerService.updateCustomer(customer);
+        WebResponse<Customer> response = WebResponse.<Customer>builder()
+                .status(HttpStatus.OK.getReasonPhrase())
+                .message("Success Update customer By Id ")
+                .data(updateCustomer)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
 
 }
