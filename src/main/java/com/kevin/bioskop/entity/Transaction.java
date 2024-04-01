@@ -38,6 +38,7 @@ public class Transaction {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Jakarta")
     private Date transactionDate;
 
+
     @PrePersist
     protected  void onCreate(){
         transactionDate = new Date();

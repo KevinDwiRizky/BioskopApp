@@ -20,4 +20,6 @@ public class TransactionRequest {
 
     @NotBlank(message = "Seat ID cannot be blank")
     private String seatId;
+
+
 }
